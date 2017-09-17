@@ -1,3 +1,4 @@
+from __future__ import unicode_literals
 from __future__ import print_function
 from future import standard_library
 
@@ -21,7 +22,7 @@ class Project(object):
         self.name = props['name']
         self.status = props['lastBuildStatus']
         self.activity = props['activity']
-        self.url = urlparse(props['url'], 'http').geturl().replace('///', '//')
+        self.url = urlparse(props['url'], u'http').geturl().replace('///', '//')
         self.last_build_time = props['lastBuildTime']
         self.last_build_label = props.get('lastBuildLabel', None)
 

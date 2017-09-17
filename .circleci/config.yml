@@ -1,6 +1,6 @@
 version: 2
 jobs:
-  build:
+  build_pythonv2:
     working_directory: ~/buildnotify
     docker:
       - image: ubuntu:16.04
@@ -13,3 +13,22 @@ jobs:
             curl -s https://bootstrap.pypa.io/get-pip.py | python
             pip install tox
             xvfb-run --server-args="-screen 0 1024x768x24" tox -ecoveralls
+  build_pythonv3:
+    working_directory: ~/buildnotify
+    docker:
+      - image: ubuntu:16.04
+    steps:
+      - checkout
+      - run:
+          command: |
+            apt-get update
+            apt-get install -y -qq python3-pyqt5 python3-keyring xvfb curl git
+            curl -s https://bootstrap.pypa.io/get-pip.py | python3
+            pip3 install tox
+            xvfb-run --server-args="-screen 0 1024x768x24" tox -ecoveralls
+workflows:
+  version: 2
+  build_and_test:
+    jobs:
+      - build_pythonv2
+      - build_pythonv3

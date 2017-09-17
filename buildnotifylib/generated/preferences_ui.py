@@ -9,7 +9,7 @@
 from builtins import object
 from PyQt5 import QtCore, QtWidgets
 # noinspection PyUnresolvedReferences
-import icons_rc # noqa
+import buildnotifylib.generated.icons_rc # noqa
 
 
 class Ui_Preferences(object):

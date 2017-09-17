@@ -100,7 +100,7 @@ class ProjectLoader(object):
         projects = []
         for node in dom.getElementsByTagName('Project'):
             def attr(attribute):
-                return node.getAttribute(attribute).encode('utf-8')
+                return node.getAttribute(attribute) + u''
 
             projects.append(Project(
                 self.server_config.url,
