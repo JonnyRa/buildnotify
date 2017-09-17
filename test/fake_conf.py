@@ -1,3 +1,5 @@
+from builtins import object
+
 from buildnotifylib.config import Config
 
 

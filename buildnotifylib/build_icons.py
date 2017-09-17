@@ -1,4 +1,5 @@
 from PyQt5 import QtGui, QtCore
+from builtins import str
 
 
 class BuildIcons(object):

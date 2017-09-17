@@ -1,5 +1,7 @@
 from ssl import SSLError
 
+from builtins import object
+
 
 class Response(object):
     def __init__(self, server, error=None):

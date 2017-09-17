@@ -1,5 +1,10 @@
+from __future__ import print_function
+from future import standard_library
+
+standard_library.install_aliases()
+from builtins import object
 from datetime import datetime
-from urlparse import urlparse
+from urllib.parse import urlparse
 
 import pytz
 from dateutil.parser import parse

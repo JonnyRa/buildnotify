@@ -1,3 +1,6 @@
+from builtins import object
+
+
 class FilteredContinuousIntegrationServer(object):
     def __init__(self, server, filter_projects):
         self.server = server

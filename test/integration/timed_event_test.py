@@ -1,5 +1,6 @@
 import pytest
 from PyQt5.QtWidgets import QWidget
+from builtins import object
 
 from buildnotifylib.core.repeat_timed_event import RepeatTimedEvent
 from buildnotifylib.core.timed_event import TimedEvent

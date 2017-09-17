@@ -1,5 +1,5 @@
-from buildnotifylib.project_status_notification import ProjectStatusNotification
 from buildnotifylib.notifications import Notification
+from buildnotifylib.project_status_notification import ProjectStatusNotification
 
 
 class AppNotification(object):

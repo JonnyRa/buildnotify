@@ -4,6 +4,7 @@ import pytest
 from PyQt5 import QtCore
 from PyQt5.QtCore import QItemSelectionModel, Qt
 from PyQt5.QtWidgets import QDialogButtonBox
+from builtins import str
 
 from buildnotifylib.preferences import PreferencesDialog
 from buildnotifylib.server_configuration_dialog import ServerConfigurationDialog

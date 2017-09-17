@@ -1,10 +1,13 @@
+from __future__ import absolute_import
+from future import standard_library
+standard_library.install_aliases()
+from builtins import object
 import unittest
 
 from buildnotifylib.core.continous_integration_server import ContinuousIntegrationServer
 from buildnotifylib.core.projects import OverallIntegrationStatus, ProjectLoader
 from buildnotifylib.serverconfig import ServerConfig
-from project_builder import ProjectBuilder
-from cStringIO import StringIO
+from .project_builder import ProjectBuilder
 
 
 class OverallIntegrationStatusTest(unittest.TestCase):
@@ -46,14 +49,14 @@ class MockConnection(object):
 
 class ProjectLoaderTest(unittest.TestCase):
     def test_should_load_feed(self):
-        connection = MockConnection(lambda: StringIO("""<?xml version="1.0" encoding="UTF-8"?>
+        connection = MockConnection(lambda: """<?xml version="1.0" encoding="UTF-8"?>
                                 <Projects>
                                     <Project name="project" 
                                         activity="Sleeping" 
                                         lastBuildStatus="Success" 
                                         lastBuildTime="2009-06-12T06:54:35" 
                                         webUrl="http://local/url"/>
-                                </Projects>"""))
+                                </Projects>""")
         response = ProjectLoader(ServerConfig('url', [], '', '', '', ''), 10, connection).get_data()
         projects = response.server.get_projects()
         self.assertEquals(1, len(projects))
@@ -76,14 +79,14 @@ class ProjectLoaderTest(unittest.TestCase):
         self.assertEquals(True, response.server.unavailable)
 
     def test_should_set_display_prefix(self):
-        connection = MockConnection(lambda: StringIO("""<?xml version="1.0" encoding="UTF-8"?>
+        connection = MockConnection(lambda: """<?xml version="1.0" encoding="UTF-8"?>
                                         <Projects>
-                                            <Project name="project" 
-                                                activity="Sleeping" 
-                                                lastBuildStatus="Success" 
-                                                lastBuildTime="2009-06-12T06:54:35" 
+                                            <Project name="project"
+                                                activity="Sleeping"
+                                                lastBuildStatus="Success"
+                                                lastBuildTime="2009-06-12T06:54:35"
                                                 webUrl="http://local/url"/>
-                                        </Projects>"""))
+                                        </Projects>""")
         response = ProjectLoader(ServerConfig('url', [], '', 'RELEASE', '', ''), 10, connection).get_data()
         projects = response.server.get_projects()
         self.assertEquals(1, len(projects))

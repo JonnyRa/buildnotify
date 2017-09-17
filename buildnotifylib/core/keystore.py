@@ -1,4 +1,5 @@
 import keyring
+from builtins import object
 
 
 class Keystore(object):

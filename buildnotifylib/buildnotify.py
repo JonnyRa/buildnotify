@@ -7,8 +7,8 @@ from buildnotifylib.app_ui import AppUi
 from buildnotifylib.build_icons import BuildIcons
 from buildnotifylib.config import Config
 from buildnotifylib.core.projects import ProjectsPopulator
-from buildnotifylib.core.timed_event import TimedEvent
 from buildnotifylib.core.repeat_timed_event import RepeatTimedEvent
+from buildnotifylib.core.timed_event import TimedEvent
 
 
 class BuildNotify(object):

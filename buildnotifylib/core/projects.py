@@ -1,7 +1,10 @@
+from __future__ import print_function
+
 from xml.dom import minidom
 
 from PyQt5 import QtCore
 from PyQt5.QtCore import QThread
+from builtins import object
 
 from buildnotifylib.core.background_event import BackgroundEvent
 from buildnotifylib.core.continous_integration_server import ContinuousIntegrationServer
@@ -86,23 +89,26 @@ class ProjectLoader(object):
         self.connection = connection
 
     def get_data(self):
-        print "checking %s" % self.server_config.url
+        print("checking %s" % self.server_config.url)
         try:
             data = self.connection.connect(self.server_config, self.timeout)
-        except Exception, ex:
-            print ex
+        except Exception as ex:
+            print(ex)
             return Response(ContinuousIntegrationServer(self.server_config.url, [], True), ex)
-        dom = minidom.parse(data)
-        print "processed %s" % self.server_config.url
+        dom = minidom.parseString(data)
+        print("processed %s" % self.server_config.url)
         projects = []
         for node in dom.getElementsByTagName('Project'):
+            def attr(attribute):
+                return node.getAttribute(attribute).encode('utf-8')
+
             projects.append(Project(
                 self.server_config.url,
                 self.server_config.prefix,
                 self.server_config.timezone,
                 {
-                    'name': node.getAttribute('name'), 'lastBuildStatus': node.getAttribute('lastBuildStatus'),
-                    'lastBuildLabel': node.getAttribute('lastBuildLabel'), 'activity': node.getAttribute('activity'),
-                    'url': node.getAttribute('webUrl'), 'lastBuildTime': node.getAttribute('lastBuildTime')
+                    'name': attr('name'), 'lastBuildStatus': attr('lastBuildStatus'),
+                    'lastBuildLabel': attr('lastBuildLabel'), 'activity': attr('activity'),
+                    'url': attr('webUrl'), 'lastBuildTime': attr('lastBuildTime')
                 }))
         return Response(ContinuousIntegrationServer(self.server_config.url, projects))

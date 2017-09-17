@@ -4,6 +4,7 @@ import pytest
 from PyQt5 import QtCore
 from PyQt5.QtCore import Qt
 from PyQt5.QtWidgets import QMessageBox
+from builtins import str
 from mock import ANY
 
 from buildnotifylib.server_configuration_dialog import ServerConfigurationDialog

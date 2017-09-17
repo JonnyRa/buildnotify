@@ -1,6 +1,7 @@
-from test.fake_conf import ConfigBuilder
-from buildnotifylib.core.projects import ProjectsPopulator
 import pytest
+
+from buildnotifylib.core.projects import ProjectsPopulator
+from test.fake_conf import ConfigBuilder
 
 
 @pytest.mark.functional

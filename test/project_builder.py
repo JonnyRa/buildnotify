@@ -1,5 +1,7 @@
-from buildnotifylib.core.project import Project
+from builtins import object
+
 from buildnotifylib.config import Config
+from buildnotifylib.core.project import Project
 
 
 class ProjectBuilder(object):

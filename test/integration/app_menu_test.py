@@ -1,11 +1,13 @@
+from datetime import datetime
+
 import pytest
 from PyQt5.QtWidgets import QWidget
-from datetime import datetime
+from builtins import str
 from dateutil.relativedelta import relativedelta
 
 from buildnotifylib.app_menu import AppMenu
-from buildnotifylib.preferences import PreferencesDialog
 from buildnotifylib.build_icons import BuildIcons
+from buildnotifylib.preferences import PreferencesDialog
 from test.fake_conf import ConfigBuilder
 from test.project_builder import ProjectBuilder
 

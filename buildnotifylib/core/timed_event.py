@@ -1,4 +1,5 @@
 from PyQt5 import QtCore
+from builtins import object
 
 
 class TimedEvent(object):

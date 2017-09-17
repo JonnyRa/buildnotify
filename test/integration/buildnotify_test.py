@@ -5,6 +5,7 @@ import keyring
 import keyring.backend
 import pytest
 from PyQt5.QtWidgets import QWidget, QSystemTrayIcon
+from builtins import str
 
 from buildnotifylib import BuildNotify
 from test.fake_conf import ConfigBuilder

@@ -1,8 +1,10 @@
-import base64
+from future import standard_library
+
+standard_library.install_aliases()
+from builtins import object
 import platform
-import socket
-import ssl
-import urllib2
+import requests
+from requests_file import FileAdapter
 
 
 class HttpConnection(object):
@@ -10,13 +12,14 @@ class HttpConnection(object):
         self.user_agent = "%s-%s" % ("BuildNotify", platform.platform())
 
     def connect(self, server, timeout):
-        socket.setdefaulttimeout(timeout)
-        headers = {'User-Agent': self.user_agent}
-        if server.has_creds():
-            unquoted_username = urllib2.unquote(server.username)
-            unquoted_password = urllib2.unquote(server.password)
-            encodedstring = base64.encodestring("%s:%s" % (unquoted_username, unquoted_password))[:-1]
-            headers["Authorization"] = "Basic %s" % encodedstring
-        if server.skip_ssl_verification:
-            return urllib2.urlopen(urllib2.Request(server.url, None, headers), context=ssl._create_unverified_context())
-        return urllib2.urlopen(urllib2.Request(server.url, None, headers))
+        credentials = (server.username, server.password) if server.has_creds() else None
+        s = requests.Session()
+        s.mount('file://', FileAdapter())
+
+        with s:
+            response = s.get(server.url, auth=credentials, verify=server.skip_ssl_verification,
+                             headers={'User-Agent': self.user_agent}, timeout=timeout)
+            if response.encoding is None:
+                response.encoding = 'utf-8'
+            response.raise_for_status()
+            return response.text

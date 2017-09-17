@@ -1,3 +1,5 @@
+from builtins import object
+
 from buildnotifylib.core.timed_event import TimedEvent
 
 
