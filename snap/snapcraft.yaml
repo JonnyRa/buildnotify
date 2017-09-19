@@ -1,0 +1,43 @@
+name: buildnotify
+version: '1.0+git'
+summary: A system tray based build status notification app for cctray.xml feed.
+description: |
+  BuildNotify is a system tray notification app for continuous integration build status changes.
+grade: devel
+confinement: strict
+icon: icons/buildnotify.svg
+
+apps:
+  buildnotify:
+    command: desktop-launch buildnotifyapplet.py
+    plugs: [home, network, x11, unity7]
+    desktop: share/applications/buildnotify.desktop
+
+parts:
+  desktop-qt5:
+    stage-packages:
+      - libxkbcommon0
+      - ttf-ubuntu-font-family
+      - dmz-cursor-theme
+      - light-themes
+      - shared-mime-info
+      - libqt5gui5
+      - libgdk-pixbuf2.0-0
+      - libqt5svg5 # for loading icon themes which are svg
+      - locales-all
+  buildnotify:
+    plugin: python
+    python-version: python2
+    source: .
+    build-packages:
+      - python-pyqt5
+      - python-keyring
+#    source-type: git
+    stage-packages:
+      - python-pyqt5
+      - python-keyring
+    python-packages:
+      - python-dateutil==2.6.1
+      - pytz==2017.2
+      - keyring==10.4.0
+    after: [desktop-qt5]
